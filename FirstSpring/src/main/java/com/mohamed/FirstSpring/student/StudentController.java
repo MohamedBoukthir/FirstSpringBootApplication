@@ -1,8 +1,6 @@
 package com.mohamed.FirstSpring.student;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -10,16 +8,43 @@ import java.util.List;
 @RequestMapping("/api/v1/students")
 public class StudentController {
 
-    private StudentService studentservice;
-
+    private final StudentService studentservice;
 
     public StudentController(StudentService studentservice) {
         this.studentservice = studentservice;
     }
 
+    @PatchMapping
+    public Student save (
+            @RequestBody Student student
+    ) {
+        return studentservice.save(student);
+    }
+
+    @GetMapping("/{email}")
+    public Student findByEmail(
+           @PathVariable("email") String email
+    ){
+        return studentservice.findByEmail(email);
+    }
+
     @GetMapping
     public List<Student> findAllStudents() {
         return studentservice.findAllStudents();
+    }
+
+    @PutMapping
+    public Student updateStudent(
+            @RequestBody Student student
+    ){
+        return studentservice.update(student);
+    }
+
+    @DeleteMapping("/{email}")
+    public void delete(
+          @PathVariable("email") String email
+    ){
+        studentservice.delete(email);
     }
 
 }
