@@ -10,12 +10,16 @@ import java.util.List;
 @RequestMapping("/api/v1/students")
 public class StudentController {
 
+    private StudentService studentservice;
+
+
+    public StudentController(StudentService studentservice) {
+        this.studentservice = studentservice;
+    }
+
     @GetMapping
-    public List<String> findAllStudent() {
-        return List.of(
-                "mohamed",
-                "hello world"
-        );
+    public List<Student> findAllStudents() {
+        return studentservice.findAllStudents();
     }
 
 }
