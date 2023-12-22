@@ -1,5 +1,6 @@
 package com.mohamed.FirstSpring.student;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,11 +11,13 @@ public class StudentController {
 
     private final StudentService studentservice;
 
-    public StudentController(StudentService studentservice) {
+    public StudentController(
+           @Qualifier("db") StudentService studentservice
+    ) {
         this.studentservice = studentservice;
     }
 
-    @PatchMapping
+    @PostMapping
     public Student save (
             @RequestBody Student student
     ) {
